@@ -1,11 +1,11 @@
 import { useState } from 'react'
 
 import './App.css'
+
 import TodoSearch from './components/TodoSearch'
 import TodoAdd from './components/TodoAdd';
+import TodoList from './components/TodoList';
 import { generateUUID } from './utilities/id_generator';
-
-
 
 const MockupData = [ // ESTO ESTARIA EN LA DATABASE  
   {
@@ -19,7 +19,7 @@ const MockupData = [ // ESTO ESTARIA EN LA DATABASE
     completed: false
   },
   {
-    name: 'Hacer la cena',
+    name: 'Comprar pollo',
     id: 'd1e28697-fc0b-4db2-8077-daf6d8abedb3',
     completed: false
   }
@@ -27,17 +27,22 @@ const MockupData = [ // ESTO ESTARIA EN LA DATABASE
 
 function App() {
 
-  const [ items , setItems ] = useState([...MockupData]) ; 
+  const [ items , setItems ] = useState([...MockupData]) ;
+
+  const [ filteredItems , setFilteredItems ] = useState([]) ;
 
   function searchItem ( itemName ) {
     
     const searchRegex = new RegExp(`${itemName}`, "i"); 
 
-    const found = items.find( item => {
-      return searchRegex.test(item.name) && item.name
-    })
+    const found = items.filter( item => 
+
+      searchRegex.test(item.name) 
+      //return searchRegex.test(item.name) && item.name
+    )
 
     console.log(found) ;
+    setFilteredItems([...found]) ; 
 
   }
 
@@ -50,7 +55,7 @@ function App() {
     }
 
     setItems([
-      ...item,
+      ...items,
       newItem
     ])
 
@@ -62,6 +67,7 @@ function App() {
     <>
       <TodoSearch handler={searchItem} />
       <TodoAdd handler={addItem} />
+      <TodoList list={ filteredItems.length ? filteredItems : items } />
     </>
   )
 }

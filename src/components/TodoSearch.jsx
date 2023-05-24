@@ -1,5 +1,8 @@
 import { useState } from "react"
 
+import search from "../styles/search.module.css"
+import searchLogo from "../assets/SearchButton.svg"
+
 function TodoSearch ( { handler } ) {
 
     const [ searchTerm , setSearchTerm ] = useState ('') ; 
@@ -9,16 +12,19 @@ function TodoSearch ( { handler } ) {
     }
 
     return (
-        <div>
-            <input  
-                onChange={updateInput} 
-                value={searchTerm}/>
-            <button
-                onClick={()=> handler(searchTerm)}
-            > 
-                Search Icon 
-            </button>
-        </div>
+        <nav className={search["searchBar"]}>
+            <div className={search["searchBar__Wrapper"]}>
+                <input  className={search["searchBar__Input"]}
+                    onChange={updateInput} 
+                    value={searchTerm}/>
+                <button
+                    className={search["searchBar__Button"]}
+                    onClick={()=> handler(searchTerm)}
+                > 
+                    <img src={searchLogo}></img>
+                </button>
+            </div>
+        </nav>
     )
 }
 

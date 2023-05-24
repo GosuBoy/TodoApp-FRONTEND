@@ -1,0 +1,43 @@
+.addBar {
+    background-color: #232121;
+    width: 1440px;
+    display: flex;
+    justify-content: center;
+    margin: 0 auto;
+}
+
+.addBar__Wrapper {
+    margin: 22px 0;
+    background-color: #545454;
+    box-sizing: border-box;
+    height: 102px;
+    width: 792px;
+    border-radius: 28px;
+    display: flex;
+    padding: 12px 23px;
+}
+
+.addBar__Input {
+    background-color: #545454;
+    flex: 1;
+    font-size: 50px;
+    border: none;
+    padding-left: 20px;
+    color: #D9D9D9;
+}
+
+.addBar__Input:focus-visible {
+    outline: none;
+}
+
+.addBar__Button {
+    border: none;
+    background-color: #232121;
+    height: 78px;
+    width: 78px;
+    border-radius: 67px;
+}
+
+.addBar__Button:hover {
+    background-color: #8A8A8A;
+}
