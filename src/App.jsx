@@ -5,7 +5,9 @@ import TodoSearch from './components/TodoSearch'
 import TodoAdd from './components/TodoAdd';
 import { generateUUID } from './utilities/id_generator';
 
-const MockupData = [
+
+
+const MockupData = [ // ESTO ESTARIA EN LA DATABASE  
   {
     name: 'Hacer la cena',
     id: '44d6f2be-a4f0-4159-8672-bb14a12ce27b',
