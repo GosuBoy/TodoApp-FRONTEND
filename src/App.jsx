@@ -43,12 +43,18 @@ function App() {
 
   function addItem ( item ) {
 
-
-    console.log({
+    const newItem = {
       name: item,
       id: generateUUID() , 
       completed: false, 
-    }); 
+    }
+
+    setItems([
+      ...item,
+      newItem
+    ])
+
+    console.log(newItem); 
 
   }
 
