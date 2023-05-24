@@ -43,6 +43,7 @@ function App() {
 
     console.log(found) ;
     setFilteredItems([...found]) ; 
+    console.log(filteredItems)
 
   }
 
