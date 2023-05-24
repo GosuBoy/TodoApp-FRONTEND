@@ -1,33 +1,59 @@
 import { useState } from 'react'
-import reactLogo from './assets/react.svg'
-import viteLogo from '/vite.svg'
+
 import './App.css'
+import TodoSearch from './components/TodoSearch'
+import TodoAdd from './components/TodoAdd';
+import { generateUUID } from './utilities/id_generator';
+
+const MockupData = [
+  {
+    name: 'Hacer la cena',
+    id: '44d6f2be-a4f0-4159-8672-bb14a12ce27b',
+    completed: false
+  },
+  {
+    name: 'Ir a la ceremonia',
+    id: '22b3f2a7-112e-4e31-b546-e11c302a3180',
+    completed: false
+  },
+  {
+    name: 'Hacer la cena',
+    id: 'd1e28697-fc0b-4db2-8077-daf6d8abedb3',
+    completed: false
+  }
+]
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [ items , setItems ] = useState([...MockupData]) ; 
+
+  function searchItem ( itemName ) {
+    
+    const searchRegex = new RegExp(`${itemName}`, "i"); 
+
+    const found = items.find( item => {
+      return searchRegex.test(item.name) && item.name
+    })
+
+    console.log(found) ;
+
+  }
+
+  function addItem ( item ) {
+
+
+    console.log({
+      name: item,
+      id: generateUUID() , 
+      completed: false, 
+    }); 
+
+  }
 
   return (
     <>
-      <div>
-        <a href="https://vitejs.dev" target="_blank">
-          <img src={viteLogo} className="logo" alt="Vite logo" />
-        </a>
-        <a href="https://react.dev" target="_blank">
-          <img src={reactLogo} className="logo react" alt="React logo" />
-        </a>
-      </div>
-      <h1>Vite + React</h1>
-      <div className="card">
-        <button onClick={() => setCount((count) => count + 1)}>
-          count is {count}
-        </button>
-        <p>
-          Edit <code>src/App.jsx</code> and save to test HMR
-        </p>
-      </div>
-      <p className="read-the-docs">
-        Click on the Vite and React logos to learn more
-      </p>
+      <TodoSearch handler={searchItem} />
+      <TodoAdd handler={addItem} />
     </>
   )
 }
