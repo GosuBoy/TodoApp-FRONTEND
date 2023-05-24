@@ -1,11 +1,12 @@
-function TodoList( { list } ) {
-    return (
-        <ul id="todolist">
-            {
-            list.map((item) => ( <li key={item.id}>{item.name}</li> )) 
-            }
-        </ul>
-    )
+import "../styles/TodoList.css"
+
+
+function TodoList({ children }) {
+  return (
+  <ul className="TodoList">
+    {children}
+    </ul>
+  );
 }
 
-export default TodoList
+export { TodoList};

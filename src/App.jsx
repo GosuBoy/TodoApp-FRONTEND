@@ -4,8 +4,10 @@ import './App.css'
 
 import TodoSearch from './components/TodoSearch'
 import TodoAdd from './components/TodoAdd';
-import TodoList from './components/TodoList';
+import { TodoList } from './components/TodoList';
+import { TodoItem } from './components/TodoItem';
 import { generateUUID } from './utilities/id_generator';
+
 
 const MockupData = [ // ESTO ESTARIA EN LA DATABASE  
   {
@@ -28,8 +30,8 @@ const MockupData = [ // ESTO ESTARIA EN LA DATABASE
 function App() {
 
   const [ items , setItems ] = useState([...MockupData]) ;
-
   const [ filteredItems , setFilteredItems ] = useState([]) ;
+  const [searchValue, setSearchValue] = useState("");
 
   function searchItem ( itemName ) {
     
@@ -64,11 +66,45 @@ function App() {
 
   }
 
+  const searchedItems = items.filter((item) => {
+    const itemText = item.name.toLocaleLowerCase();
+    const searcName = searchValue.toLocaleLowerCase();
+    return itemText.includes(searcName);
+  });
+
+  const completeTodo = (name) => {
+    const newItems = [...items];
+    const itemsIndex = newItems.findIndex((item) => item.name === name);
+
+    newItems[itemsIndex].completed = !newItems[itemsIndex].completed;
+    // ? (newTodos[todoIndex].completed = false) //Alternative solution
+    // : (newTodos[todoIndex].completed = true); //Alternative solution
+    setItems(newItems);
+  };
+  const deleteTodo = (name) => {
+    const newItems = [...items];
+    const itemsIndex = newItems.findIndex((item) => item.name === name);
+
+    newItems.splice(itemsIndex, 1);
+    setItems(newItems);
+  };
+
   return (
     <>
       <TodoSearch handler={searchItem} />
       <TodoAdd handler={addItem} />
-      <TodoList list={ filteredItems.length ? filteredItems : items } />
+      <TodoList>
+        {searchedItems.map((item) => (
+          <TodoItem
+            key={item.id}
+            name={item.name}
+            id={item.id}
+            completed={item.completed}
+            onComplete={() => completeTodo(item.name)}
+            onDelete={() => deleteTodo(item.name)}
+          />
+        ))}
+      </TodoList>
     </>
   )
 }
