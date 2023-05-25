@@ -5,7 +5,7 @@ import './App.css'
 import TodoSearch from './components/TodoSearch'
 import TodoAdd from './components/TodoAdd';
 import { TodoList } from './components/TodoList';
-import { TodoItem } from './components/TodoItem';
+// import { TodoItem } from './components/TodoItem';
 import { generateUUID } from './utilities/id_generator';
 
 
@@ -29,10 +29,12 @@ const MockupData = [ // ESTO ESTARIA EN LA DATABASE
 
 function App() {
 
-  const [ items , setItems ] = useState([...MockupData]) ;
+  const [ items , setItems ] = useState(MockupData) ;
   const [ filteredItems , setFilteredItems ] = useState([]) ;
   // const [searchValue, setSearchValue] = useState("");
-  const [ searchTerm , setSearchTerm ] = useState ('');
+  // const [ searchTerm , setSearchTerm ] = useState ('');
+
+  console.log(filteredItems )
 
   function searchItem ( itemName ) {
     
@@ -44,9 +46,9 @@ function App() {
       //return searchRegex.test(item.name) && item.name
     )
 
-    console.log(found) ;
+    // console.log(found) ;
     setFilteredItems([...found]) ; 
-    console.log(filteredItems)
+    // console.log(filteredItems)
 
   }
 
@@ -67,35 +69,37 @@ function App() {
 
   }
 
-  const searchedItems = items.filter((item) => {
-    const itemText = item.name.toLocaleLowerCase();
-    const searchName = searchTerm.toLocaleLowerCase();
-    return itemText.includes(searchName);
-  });
+  // const searchedItems = items.filter((item) => {
+  //   const itemText = item.name.toLocaleLowerCase();
+  //   const searchName = searchTerm.toLocaleLowerCase();
+  //   return itemText.includes(searchName);
+  // });
 
-  const completeTodo = (name) => {
-    const newItems = [...items];
-    const itemsIndex = newItems.findIndex((item) => item.name === name);
+  // console.log(searchedItems)
 
-    newItems[itemsIndex].completed = !newItems[itemsIndex].completed;
-    // ? (newTodos[todoIndex].completed = false) //Alternative solution
-    // : (newTodos[todoIndex].completed = true); //Alternative solution
-    setItems(newItems);
-  };
-  const deleteTodo = (name) => {
-    const newItems = [...items];
-    const itemsIndex = newItems.findIndex((item) => item.name === name);
+  // const completeTodo = (name) => {
+  //   const newItems = [...items];
+  //   const itemsIndex = newItems.findIndex((item) => item.name === name);
 
-    newItems.splice(itemsIndex, 1);
-    setItems(newItems);
-  };
+  //   newItems[itemsIndex].completed = !newItems[itemsIndex].completed;
+  //   // ? (newTodos[todoIndex].completed = false) //Alternative solution
+  //   // : (newTodos[todoIndex].completed = true); //Alternative solution
+  //   setItems(newItems);
+  // };
+  // const deleteTodo = (name) => {
+  //   const newItems = [...items];
+  //   const itemsIndex = newItems.findIndex((item) => item.name === name);
+
+  //   newItems.splice(itemsIndex, 1);
+  //   setItems(newItems);
+  // };
 
   return (
     <>
       <TodoSearch handler={searchItem} />
       <TodoAdd handler={addItem} />
-      <TodoList>
-        {searchedItems.map((item) => (
+      <TodoList list={ filteredItems.length ? filteredItems : items } >
+        {/* {searchedItems.map((item) => (
           <TodoItem
             key={item.id}
             name={item.name}
@@ -104,7 +108,7 @@ function App() {
             onComplete={() => completeTodo(item.name)}
             onDelete={() => deleteTodo(item.name)}
           />
-        ))}
+        ))} */}
       </TodoList>
     </>
   )
