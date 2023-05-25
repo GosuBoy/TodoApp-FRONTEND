@@ -31,7 +31,8 @@ function App() {
 
   const [ items , setItems ] = useState([...MockupData]) ;
   const [ filteredItems , setFilteredItems ] = useState([]) ;
-  const [searchValue, setSearchValue] = useState("");
+  // const [searchValue, setSearchValue] = useState("");
+  const [ searchTerm , setSearchTerm ] = useState ('');
 
   function searchItem ( itemName ) {
     
@@ -68,8 +69,8 @@ function App() {
 
   const searchedItems = items.filter((item) => {
     const itemText = item.name.toLocaleLowerCase();
-    const searcName = searchValue.toLocaleLowerCase();
-    return itemText.includes(searcName);
+    const searchName = searchTerm.toLocaleLowerCase();
+    return itemText.includes(searchName);
   });
 
   const completeTodo = (name) => {
