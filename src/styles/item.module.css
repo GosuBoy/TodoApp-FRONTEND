@@ -26,12 +26,37 @@
     border-radius: 50%;
 }
 
+
 .todoItem__Checkbox__Completed {
     background-image: url('../assets/checkmark.svg');
     background-position: center;
     background-repeat: no-repeat;
+    
 }
 
 .Completed {
     color: #232121;
+    text-decoration: line-through;
 }
+
+
+
+.todoItem__DeleteButton{
+  /* transform: translateY(-50%); */
+    background-color: #232121;
+    height: 54px;
+    width: 54px;
+    border-radius: 67px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+    transition: background-color 0.3s ease;
+    
+}
+
+.todoItem__DeleteButton:hover {
+    background-color: #f44336;
+    color: white;
+  }
+  
