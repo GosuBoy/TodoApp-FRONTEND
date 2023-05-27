@@ -1,4 +1,11 @@
 body {
-    background-color: rgb(161, 161, 161);
     margin: 0;
+    /* BACKGROUND TEXTURE */ 
+    backdrop-filter: blur(0.6px);
+    background-color: #232121;
+    opacity: 1;
+    background-image:  linear-gradient(30deg, #545454 12%, transparent 12.5%, transparent 87%, #545454 87.5%, #545454), linear-gradient(150deg, #545454 12%, transparent 12.5%, transparent 87%, #545454 87.5%, #545454), linear-gradient(30deg, #545454 12%, transparent 12.5%, transparent 87%, #545454 87.5%, #545454), linear-gradient(150deg, #545454 12%, transparent 12.5%, transparent 87%, #545454 87.5%, #545454), linear-gradient(60deg, #54545477 25%, transparent 25.5%, transparent 75%, #54545477 75%, #54545477), linear-gradient(60deg, #54545477 25%, transparent 25.5%, transparent 75%, #54545477 75%, #54545477);
+    background-size: 80px 140px;
+    background-position: 0 0, 0 0, 40px 70px, 40px 70px, 0 0, 40px 70px;
+
 }

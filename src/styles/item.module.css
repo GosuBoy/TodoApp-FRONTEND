@@ -39,24 +39,14 @@
     text-decoration: line-through;
 }
 
-
-
-.todoItem__DeleteButton{
-  /* transform: translateY(-50%); */
-    background-color: #232121;
-    height: 54px;
-    width: 54px;
-    border-radius: 67px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    
-    transition: background-color 0.3s ease;
-    
+.todoItem__DeleteButton {
+    background-image: url('../assets/deleteTrashcan.svg');
+    /* additional styles */
+    background-position: center;
+    background-repeat: no-repeat;
+    border: none;
+    background: none;
+    margin-left: auto;
+    margin-right: 10px;
 }
-
-.todoItem__DeleteButton:hover {
-    background-color: #f44336;
-    color: white;
-  }
   
