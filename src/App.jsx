@@ -4,10 +4,12 @@ import './App.css'
 
 import TodoSearch from './components/TodoSearch'
 import TodoAdd from './components/TodoAdd';
-import TodoList from './components/TodoList';
+import { TodoList } from './components/TodoList';
+// import { TodoItem } from './components/TodoItem';
 import { generateUUID } from './utilities/id_generator';
 import TodoHr from './components/TodoHr';
 import TodoFooter from './components/TodoFooter';
+
 
 const MockupData = [ // ESTO ESTARIA EN LA DATABASE  
   {
@@ -29,9 +31,12 @@ const MockupData = [ // ESTO ESTARIA EN LA DATABASE
 
 function App() {
 
-  const [ items , setItems ] = useState([...MockupData]) ;
-
+  const [ items , setItems ] = useState(MockupData) ;
   const [ filteredItems , setFilteredItems ] = useState([]) ;
+  // const [searchValue, setSearchValue] = useState("");
+  // const [ searchTerm , setSearchTerm ] = useState ('');
+
+  console.log(filteredItems )
 
   function searchItem ( itemName ) {
     
@@ -43,8 +48,9 @@ function App() {
       //return searchRegex.test(item.name) && item.name
     )
 
-    console.log(found) ;
+    // console.log(found) ;
     setFilteredItems([...found]) ; 
+    // console.log(filteredItems)
 
   }
 
@@ -80,6 +86,7 @@ function App() {
       <TodoHr/>
       <TodoList list={ filteredItems.length ? filteredItems : items } handler={editItem}/>
       <TodoFooter />
+
     </>
   )
 }
