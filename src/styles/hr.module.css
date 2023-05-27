@@ -1,0 +1,15 @@
+.hr {
+    background-color: #232121;
+    display: flex;
+    width: 1440px;
+    justify-content: center;
+    padding-top: 39px;
+    padding-bottom: 34px;
+    margin: 0 auto;
+}
+
+.hr__inner {
+    height: 5px;
+    width: 832px;
+    background-color: #D9D9D9;
+}

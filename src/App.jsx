@@ -6,6 +6,8 @@ import TodoSearch from './components/TodoSearch'
 import TodoAdd from './components/TodoAdd';
 import TodoList from './components/TodoList';
 import { generateUUID } from './utilities/id_generator';
+import TodoHr from './components/TodoHr';
+import TodoFooter from './components/TodoFooter';
 
 const MockupData = [ // ESTO ESTARIA EN LA DATABASE  
   {
@@ -63,11 +65,21 @@ function App() {
 
   }
 
+  function editItem ( event ) {
+    console.log(event.target.parentNode.id)
+    const itemIndex = items.findIndex( item => item.id === event.target.parentNode.id ) ; 
+    const status = items[itemIndex].completed 
+    status ? items[itemIndex].completed  = false : items[itemIndex].completed  = true ; 
+    setItems([...items])
+  }
+
   return (
     <>
       <TodoSearch handler={searchItem} />
       <TodoAdd handler={addItem} />
-      <TodoList list={ filteredItems.length ? filteredItems : items } />
+      <TodoHr/>
+      <TodoList list={ filteredItems.length ? filteredItems : items } handler={editItem}/>
+      <TodoFooter />
     </>
   )
 }

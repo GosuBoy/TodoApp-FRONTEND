@@ -1,0 +1,37 @@
+.todoItem {
+    box-sizing: border-box;
+    width: 792px;
+    height: 76px;
+    background-color: #545454;
+    display: flex;
+    align-items: center;
+    /* li CSS reset */
+    list-style-type: none;
+    border-radius: 36px;
+    padding: 10px 13px;
+    gap: 19px;
+    /* Typography */ 
+    font-family: 'League Spartan';
+    font-style: normal;
+    font-weight: 500;
+    font-size: 36px;
+    line-height: 33px;
+    color: #FFFFFF;
+}
+
+.todoItem__Checkbox {
+    height: 54px;
+    width: 54px;
+    background-color: #232121;
+    border-radius: 50%;
+}
+
+.todoItem__Checkbox__Completed {
+    background-image: url('../assets/checkmark.svg');
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.Completed {
+    color: #232121;
+}
