@@ -1,5 +1,8 @@
 import item from '../styles/item.module.css';
 
+import deleteIcon from '../assets/deleteTrashcan.svg'
+
+
 function TodoItem({ data, onEdit, onDelete }) {
   const handleDelete = () => {
     
@@ -14,7 +17,7 @@ function TodoItem({ data, onEdit, onDelete }) {
       ></div>
       {data.name}
       <button className={item['todoItem__DeleteButton']} onClick={handleDelete}>
-        X
+        <img src={deleteIcon} ></img>
       </button>
     </li>
   );
