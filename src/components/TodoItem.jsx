@@ -1,24 +1,17 @@
-import "../styles/TodoItem.css";
+import item from '../styles/item.module.css'
 
-function TodoItem(props) {
+function TodoItem ( { data , onEdit } ) {
   return (
-    <li className="TodoItem">
-      <span
-        className={`Icon Ico  n-check ${
-          props.completed && "Icon-check--active"
-        }`}
-        onClick={props.onComplete}
+    <li className={`${item['todoItem']} ${data.completed?item['Completed']:''}`} id={data.id} >
+      <div 
+        className={`${item['todoItem__Checkbox']} ${data.completed?item['todoItem__Checkbox__Completed']:''}`}
+        onClick={onEdit}
       >
-        V
-      </span>
-      <p className={`TodoItem-p ${props.completed && "TodoItem-p--complete"}`}>
-        {props.name}
-      </p>
-      <span className="Icon Icon-delete" onClick={props.onDelete}>
-        X
-        </span>
+      </div>
+      { data.name }
     </li>
-  );
+  )
 }
 
-export {TodoItem};
+export default TodoItem
+

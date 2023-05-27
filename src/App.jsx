@@ -7,6 +7,8 @@ import TodoAdd from './components/TodoAdd';
 import { TodoList } from './components/TodoList';
 // import { TodoItem } from './components/TodoItem';
 import { generateUUID } from './utilities/id_generator';
+import TodoHr from './components/TodoHr';
+import TodoFooter from './components/TodoFooter';
 
 
 const MockupData = [ // ESTO ESTARIA EN LA DATABASE  
@@ -69,47 +71,22 @@ function App() {
 
   }
 
-  // const searchedItems = items.filter((item) => {
-  //   const itemText = item.name.toLocaleLowerCase();
-  //   const searchName = searchTerm.toLocaleLowerCase();
-  //   return itemText.includes(searchName);
-  // });
-
-  // console.log(searchedItems)
-
-  // const completeTodo = (name) => {
-  //   const newItems = [...items];
-  //   const itemsIndex = newItems.findIndex((item) => item.name === name);
-
-  //   newItems[itemsIndex].completed = !newItems[itemsIndex].completed;
-  //   // ? (newTodos[todoIndex].completed = false) //Alternative solution
-  //   // : (newTodos[todoIndex].completed = true); //Alternative solution
-  //   setItems(newItems);
-  // };
-  // const deleteTodo = (name) => {
-  //   const newItems = [...items];
-  //   const itemsIndex = newItems.findIndex((item) => item.name === name);
-
-  //   newItems.splice(itemsIndex, 1);
-  //   setItems(newItems);
-  // };
+  function editItem ( event ) {
+    console.log(event.target.parentNode.id)
+    const itemIndex = items.findIndex( item => item.id === event.target.parentNode.id ) ; 
+    const status = items[itemIndex].completed 
+    status ? items[itemIndex].completed  = false : items[itemIndex].completed  = true ; 
+    setItems([...items])
+  }
 
   return (
     <>
       <TodoSearch handler={searchItem} />
       <TodoAdd handler={addItem} />
-      <TodoList list={ filteredItems.length ? filteredItems : items } >
-        {/* {searchedItems.map((item) => (
-          <TodoItem
-            key={item.id}
-            name={item.name}
-            id={item.id}
-            completed={item.completed}
-            onComplete={() => completeTodo(item.name)}
-            onDelete={() => deleteTodo(item.name)}
-          />
-        ))} */}
-      </TodoList>
+      <TodoHr/>
+      <TodoList list={ filteredItems.length ? filteredItems : items } handler={editItem}/>
+      <TodoFooter />
+
     </>
   )
 }

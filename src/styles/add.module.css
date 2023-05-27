@@ -36,6 +36,9 @@
     height: 78px;
     width: 78px;
     border-radius: 67px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
 }
 
 .addBar__Button:hover {
