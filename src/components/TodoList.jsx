@@ -1,16 +1,19 @@
-import TodoItem from "./TodoItem"
+import TodoItem from "./TodoItem";
+import styles from "../styles/list.module.css";
 
-import styles from "../styles/list.module.css"
+function TodoList({ list, handler, onDelete }) {
+  const handleDelete = (itemId) => {
+    
+    onDelete(itemId);
+  };
 
-function TodoList( { list , handler } ) {
-    return (
-        <ol className={styles['todoList']}>
-            {
-            //list.map((item) => ( <li key={item.id}>{item.name}</li> )) 
-            list.map((item) => ( <TodoItem key={item.id} data={item}  onEdit={handler} />))
-            }
-        </ol>
+  return (
+    <ol className={styles['todoList']}>
+      {list.map((item) => (
+        <TodoItem key={item.id} data={item} onEdit={handler} onDelete={handleDelete} />
+      ))}
+    </ol>
   );
 }
 
-export { TodoList};
+export { TodoList };
