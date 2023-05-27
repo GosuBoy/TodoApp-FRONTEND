@@ -14,7 +14,7 @@ function TodoItem({ data, onEdit, onDelete }) {
       ></div>
       {data.name}
       <button className={item['todoItem__DeleteButton']} onClick={handleDelete}>
-        Delete
+        X
       </button>
     </li>
   );
