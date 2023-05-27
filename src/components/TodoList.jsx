@@ -9,7 +9,7 @@ function TodoList( { list , handler } ) {
             //list.map((item) => ( <li key={item.id}>{item.name}</li> )) 
             list.map((item) => ( <TodoItem key={item.id} data={item}  onEdit={handler} />))
             }
-    </ul>
+        </ol>
   );
 }
 
