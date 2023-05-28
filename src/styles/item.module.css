@@ -49,4 +49,18 @@
     margin-left: auto;
     margin-right: 10px;
 }
+
+.todoItem__DeleteButton:hover {
+    filter: brightness(1.9); 
+    background-color: red; 
+    border-radius: 50%; 
   
+    animation: jiggle 0.3s ease-in-out infinite;
+}
+
+@keyframes jiggle {
+  0% { transform: rotateZ(0deg); }
+  25% { transform: rotateZ(-5deg); }
+  75% { transform: rotateZ(5deg); }
+  100% { transform: rotateZ(0deg); }
+}
