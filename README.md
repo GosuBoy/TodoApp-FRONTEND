@@ -1,4 +1,12 @@
-How to initialize:
+# **How to run this proyect :**
 
-1. npm install
-2. npm run dev
+```
+$ npm install
+$ npm run dev
+```
+
+## _Notes_ :
+
+> ### **Backend server runs on _http://localhost:8080/_ .**
+>
+> ### **Backend Instructions** : *https://github.com/GosuBoy/TodoApp-Backend#initialize-proyect* \*

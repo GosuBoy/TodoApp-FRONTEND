@@ -17,7 +17,8 @@
     font-weight: 500;
     font-size: 36px;
     line-height: 33px;
-    color: #FFFFFF;
+    color: #232121;
+    
     /* */
     position: relative;
 }
@@ -38,7 +39,7 @@
 }
 
 .Completed {
-    color: #232121;
+    color: #FFFFFF;
     text-decoration: line-through;
 }
 
