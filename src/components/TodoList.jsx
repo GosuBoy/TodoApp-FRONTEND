@@ -1,19 +1,21 @@
 import TodoItem from "./TodoItem";
 import styles from "../styles/list.module.css";
 
-function TodoList({ list, handler, onDelete }) {
-  const handleDelete = (itemId) => {
-    
-    onDelete(itemId);
-  };
+function TodoList({ list, editHandler, removeHandler , checkHandler}) {
 
   return (
-    <ol className={styles['todoList']}>
+    <ul className={styles['todoList']}>
       {list.map((item) => (
-        <TodoItem key={item.id} data={item} onEdit={handler} onDelete={handleDelete} />
+        <TodoItem 
+          key={item.id} 
+          data={item}
+          edit={editHandler}
+          remove={removeHandler}
+          check={checkHandler}
+        />
       ))}
-    </ol>
+    </ul>
   );
 }
 
-export { TodoList };
+export default TodoList ;

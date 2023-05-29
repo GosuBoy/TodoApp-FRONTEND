@@ -9,6 +9,7 @@ function TodoSearch ( { handler } ) {
 
     function updateInput( event ) {
         setSearchTerm(event.target.value) ; 
+        handler(event.target.value)
     }
 
     return (

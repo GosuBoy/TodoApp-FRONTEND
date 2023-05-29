@@ -1,0 +1,26 @@
+.optionsTooltip {   
+    width: 128px;
+    height: 76px;
+    background: #D9D9D9;
+    border-radius: 87px;
+    /*    scale: 100;*/
+    position: absolute;
+    right: -148px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 19px 23px;
+    box-sizing: border-box;
+    gap: 6px;
+    scale: 0%;
+}
+
+.show {
+    scale: 100%;
+}
+
+.optionsTooltip > button {
+    background: none;
+    outline: none;
+    border: none;
+}

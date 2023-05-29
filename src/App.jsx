@@ -1,17 +1,17 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
+import { generateUUID } from './utilities/id_generator';
 
 import './App.css'
 
 import TodoSearch from './components/TodoSearch'
 import TodoAdd from './components/TodoAdd';
-import { TodoList } from './components/TodoList';
-
-import { generateUUID } from './utilities/id_generator';
+import TodoList from './components/TodoList';
 import TodoHr from './components/TodoHr';
 import TodoFooter from './components/TodoFooter';
 
-
-const MockupData = [ // ESTO ESTARIA EN LA DATABASE
+// Data for Testing
+/*
+const MockupData = [ 
   {
     name: 'Hacer la cena',
     id: '44d6f2be-a4f0-4159-8672-bb14a12ce27b',
@@ -28,44 +28,124 @@ const MockupData = [ // ESTO ESTARIA EN LA DATABASE
     completed: false
   }
 ]
-
+*/
 function App() {
 
-  const [items, setItems] = useState(MockupData);
-  const [filteredItems, setFilteredItems] = useState([]);
-
-
-  console.log(filteredItems )
-
-  function searchItem ( itemName) {
-
-    const searchRegex = new RegExp(`${itemName}`, 'i');
-
-    const found = items.filter((item) =>
+  //const [ allItems , setAllItems ] = useState([...MockupData]) ;
+  const [ allItems , setAllItems ] = useState([]) ;
+  const [items, setItems] = useState([]);
+  
+  async function getItems () {
+    const data = await fetch('http://localhost:8080/tasks')  ; 
+    const items = await data.json() ;
     
-    searchRegex.test(item.name));
-    setFilteredItems([...found]);
+    setAllItems(items) ;
+    setItems(items) ;
   }
 
-  function addItem(item) {
+  useEffect(()=>{
+    getItems() 
+  }, [])
+
+  function searchItem ( itemName ) {
+
+    const searchRegex = new RegExp(`${itemName}`, 'i');
+    
+    //const found = items.filter((item) => searchRegex.test(item.name));
+    
+    //console.log(found) ; 
+    setItems(allItems.filter((item) => searchRegex.test(item.name)))
+  }
+
+  async function addItem(item) {
+    // new item data 
     const newItem = {
       name: item,
       id: generateUUID(),
       completed: false,
     };
+    // Local
+    setItems((items)=>[...items, newItem]); 
+    setAllItems((items)=>[...items, newItem]);
+    // Remote (API)
+    fetch('http://localhost:8080/tasks' , {
+      method: 'POST' ,   
+      headers: {
+      'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify(newItem) 
+    })  
+  }
+  
+  async function removeItem(itemId) {
+    
+    // Local
+    setItems(items => items.filter((item) => item.id !== itemId));
+    setAllItems( prev => prev.filter((item) => item.id !== itemId)) ; 
+    
+    // Remote (API)
 
-    setItems([...items, newItem]);
+    fetch(`http://localhost:8080/tasks/${itemId}`, {  method: 'DELETE' }) 
+    console.log(items , allItems ) 
   }
 
-  function deleteItem(itemId) {
-    setItems(items.filter((item) => item.id !== itemId));
-  }
+  async function editItem( newItemName , itemId ) {
+    //console.log(`editing... ${ newItemName } ${itemId}`)
+    
+    // Local 
 
-  function editItem(event) {
-    const itemIndex = items.findIndex((item) => item.id === event.target.parentNode.id);
-    const status = items[itemIndex].completed;
-    status ? (items[itemIndex].completed = false) : (items[itemIndex].completed = true);
-    setItems([...items]);
+    setItems ( ( itemsList ) => itemsList.map( item => { 
+        return item.id === itemId ? {...item, name: newItemName } : item 
+      }) 
+    )
+
+    setAllItems( ( itemsList ) => itemsList.map( item => { 
+        return item.id === itemId ? {...item, name: newItemName } : item 
+      }) 
+    )
+
+    // Remote (API)
+
+    fetch( `http://localhost:8080/tasks/${itemId}` ,{
+      method: 'PUT' ,   
+      headers: {
+      'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify({
+        name: newItemName 
+      }) 
+    })
+
+  }
+  
+  async function checkItem(event) {
+      
+    const itemToUpdate = items.find( (item) => item.id === event.target.parentNode.id ) ;
+    const newStatus = itemToUpdate.completed ? false : true ; 
+    
+    // Local 
+    setItems ( ( itemsList ) => itemsList.map( item => { 
+        return item.id === itemToUpdate.id ? {...item, completed: newStatus } : item 
+      }) 
+    )
+    setAllItems (
+      ( itemsList ) => itemsList.map( item => { 
+        return item.id === itemToUpdate.id ? {...item, completed: newStatus } : item 
+      }) 
+    )
+
+
+    // Remote (API)
+    fetch( `http://localhost:8080/tasks/${itemToUpdate.id}` ,{
+      method: 'PUT' ,   
+      headers: {
+      'Content-Type': 'application/json'
+      }, 
+      body: JSON.stringify({
+        completed: newStatus 
+      }) 
+    })
+    
   }
 
   return (
@@ -73,7 +153,12 @@ function App() {
       <TodoSearch handler={searchItem} />
       <TodoAdd handler={addItem} />
       <TodoHr />
-      <TodoList list={filteredItems.length ? filteredItems : items} handler={editItem} onDelete={deleteItem} />
+      <TodoList 
+        list={items} 
+        checkHandler={checkItem} 
+        editHandler={editItem}
+        removeHandler={removeItem}
+      />
       <TodoFooter />
     </>
   );
